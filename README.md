@@ -1,11 +1,17 @@
 # KeepOn
 
+[![Release](https://img.shields.io/github/v/release/DominDev/DominDev-KeepOn?display_name=tag)](https://github.com/DominDev/DominDev-KeepOn/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Windows](https://img.shields.io/badge/platform-Windows-2563EB.svg)](#runtime)
+
 KeepOn is a small Windows tray application for temporarily keeping your PC awake.
 It uses the native Windows Power Request API, so it does not simulate mouse
 movement, press keys, run hidden browser tabs, or use any workaround activity.
 
 The app is designed for simple desktop use: start it, choose a mode from the
 tray icon or control panel, and switch it off when you no longer need it.
+
+![KeepOn dashboard](docs/screenshot-dashboard.png)
 
 ## Highlights
 
@@ -37,13 +43,24 @@ a safer behavior for normal workstation use.
 
 ## Download Variants
 
-KeepOn can be published in three variants:
+Release builds are available on the
+[GitHub Releases page](https://github.com/DominDev/DominDev-KeepOn/releases).
+
+KeepOn is published in three variants:
 
 | Variant | Output | .NET required on target PC | Notes |
 | --- | --- | --- | --- |
 | Portable self-contained | `artifacts\publish\portable-self-contained\KeepOn.exe` | No | Largest file, easiest to move between machines. |
 | Portable compressed | `artifacts\publish\portable-compressed\KeepOn.exe` | No | Smaller self-contained build, may start slightly slower. |
 | Framework-dependent | `artifacts\publish\framework-dependent\KeepOn.exe` | Yes, .NET 10 Desktop Runtime | Smallest file, best for your own machines with .NET installed. |
+
+GitHub Releases attach the same variants as ZIP files:
+
+```text
+KeepOn-portable-self-contained-win-x64.zip
+KeepOn-portable-compressed-win-x64.zip
+KeepOn-framework-dependent-win-x64.zip
+```
 
 ## Installation
 
@@ -139,6 +156,25 @@ artifacts\publish\portable-self-contained\KeepOn.exe
 artifacts\publish\framework-dependent\KeepOn.exe
 artifacts\publish\portable-compressed\KeepOn.exe
 ```
+
+## Release Automation
+
+This repository includes a GitHub Actions workflow that builds all release
+variants and attaches ZIP files to a GitHub Release.
+
+Create a release by pushing a version tag:
+
+```powershell
+git tag v1.6.0
+git push origin v1.6.0
+```
+
+You can also run the `Release` workflow manually from GitHub Actions and provide
+the release tag.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
 
 ## Project Metadata
 

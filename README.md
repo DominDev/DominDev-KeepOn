@@ -1,6 +1,6 @@
 # KeepOn
 
-[![Release](https://img.shields.io/github/v/release/DominDev/DominDev-KeepOn?display_name=tag)](https://github.com/DominDev/DominDev-KeepOn/releases)
+[![Release](https://img.shields.io/badge/release-v1.6.0-22C55E.svg)](dist/v1.6.0)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Windows](https://img.shields.io/badge/platform-Windows-2563EB.svg)](#runtime)
 
@@ -43,24 +43,22 @@ a safer behavior for normal workstation use.
 
 ## Download Variants
 
-Release builds are available on the
-[GitHub Releases page](https://github.com/DominDev/DominDev-KeepOn/releases).
+Ready-to-download ZIP files are included in this repository under
+[`dist/v1.6.0`](dist/v1.6.0).
 
-KeepOn is published in three variants:
+| Download | .NET required on target PC | Notes |
+| --- | --- | --- |
+| [KeepOn-portable-self-contained-win-x64.zip](dist/v1.6.0/KeepOn-portable-self-contained-win-x64.zip) | No | Easiest option for moving between machines. |
+| [KeepOn-portable-compressed-win-x64.zip](dist/v1.6.0/KeepOn-portable-compressed-win-x64.zip) | No | Smaller self-contained build, may start slightly slower. |
+| [KeepOn-framework-dependent-win-x64.zip](dist/v1.6.0/KeepOn-framework-dependent-win-x64.zip) | Yes, .NET 10 Desktop Runtime | Smallest download, best for your own machines with .NET installed. |
 
-| Variant | Output | .NET required on target PC | Notes |
-| --- | --- | --- | --- |
-| Portable self-contained | `artifacts\publish\portable-self-contained\KeepOn.exe` | No | Largest file, easiest to move between machines. |
-| Portable compressed | `artifacts\publish\portable-compressed\KeepOn.exe` | No | Smaller self-contained build, may start slightly slower. |
-| Framework-dependent | `artifacts\publish\framework-dependent\KeepOn.exe` | Yes, .NET 10 Desktop Runtime | Smallest file, best for your own machines with .NET installed. |
+The same variants can also be generated locally:
 
-GitHub Releases attach the same variants as ZIP files:
-
-```text
-KeepOn-portable-self-contained-win-x64.zip
-KeepOn-portable-compressed-win-x64.zip
-KeepOn-framework-dependent-win-x64.zip
-```
+| Variant | Local publish output |
+| --- | --- |
+| Portable self-contained | `artifacts\publish\portable-self-contained\KeepOn.exe` |
+| Portable compressed | `artifacts\publish\portable-compressed\KeepOn.exe` |
+| Framework-dependent | `artifacts\publish\framework-dependent\KeepOn.exe` |
 
 ## Installation
 

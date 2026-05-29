@@ -17,6 +17,8 @@ internal sealed class ModernControlPanelForm : Form
     private static readonly Color Success = Color.FromArgb(34, 197, 94);
     private static readonly Color Danger = Color.FromArgb(220, 38, 38);
     private static readonly Color DisabledGray = Color.FromArgb(148, 163, 184);
+    private const string WebsiteUrl = "https://domindev.com";
+    private const string SupportUrl = "https://buycoffee.to/domindev";
 
     private readonly Action<AwakeMode> _setMode;
     private readonly Action _toggleStartWithWindows;
@@ -310,11 +312,15 @@ internal sealed class ModernControlPanelForm : Form
         _aboutNavButton = CreateSidebarButton("About", SideIcon.Info, false, 24, 184);
         _aboutNavButton.Click += (_, _) => ShowView(ControlPanelView.About);
 
-        var dividerTop = new Panel { BackColor = Border, Location = new Point(28, 634), Size = new Size(204, 1) };
-        _guideNavButton = CreateSidebarButton("Guide", SideIcon.Book, false, 24, 658);
+        var dividerTop = new Panel { BackColor = Border, Location = new Point(28, 574), Size = new Size(204, 1) };
+        _guideNavButton = CreateSidebarButton("Guide", SideIcon.Book, false, 24, 598);
         _guideNavButton.Click += (_, _) => ShowView(ControlPanelView.Guide);
-        var website = CreateSidebarButton("Website", SideIcon.Globe, false, 24, 714);
+        var website = CreateSidebarButton("Website", SideIcon.Globe, false, 24, 654);
         website.Click += (_, _) => OpenWebsite();
+        var support = CreateSidebarButton("Support", SideIcon.Heart, false, 24, 710);
+        support.ForeColor = Color.FromArgb(180, 83, 9);
+        support.IconColor = Color.FromArgb(217, 119, 6);
+        support.Click += (_, _) => OpenSupport();
         var dividerBottom = new Panel { BackColor = Border, Location = new Point(28, 768), Size = new Size(204, 1) };
         var exit = CreateSidebarButton("Exit", SideIcon.Exit, false, 24, 782);
         exit.ForeColor = Danger;
@@ -328,6 +334,7 @@ internal sealed class ModernControlPanelForm : Form
         sidebar.Controls.Add(dividerTop);
         sidebar.Controls.Add(_guideNavButton);
         sidebar.Controls.Add(website);
+        sidebar.Controls.Add(support);
         sidebar.Controls.Add(dividerBottom);
         sidebar.Controls.Add(exit);
         return sidebar;
@@ -372,7 +379,7 @@ internal sealed class ModernControlPanelForm : Form
         var view = CreateView();
         view.Controls.Add(CreateViewTitle("About", "Application details and support information"));
 
-        var infoCard = CreateCard(new Point(48, 184), new Size(800, 274));
+        var infoCard = CreateCard(new Point(48, 184), new Size(800, 314));
         infoCard.Controls.Add(CreateCaption("About KeepOn", 28, 24, 220));
         infoCard.Controls.Add(CreateBodyLabel(
             "KeepOn keeps Windows awake only when you explicitly enable one of the power-control modes. It runs from the notification area and clears active requests when the app exits.",
@@ -381,8 +388,9 @@ internal sealed class ModernControlPanelForm : Form
             720,
             58));
         infoCard.Controls.Add(CreateInfoRow("Version", Application.ProductVersion, 28, 144));
-        infoCard.Controls.Add(CreateInfoRow("Website", "https://domindev.com", 28, 184));
-        infoCard.Controls.Add(CreateInfoRow("Runtime", ".NET 10 / Windows Forms", 28, 224));
+        infoCard.Controls.Add(CreateInfoLinkRow("Website", WebsiteUrl, 28, 184, OpenWebsite));
+        infoCard.Controls.Add(CreateInfoLinkRow("Support", SupportUrl, 28, 224, OpenSupport));
+        infoCard.Controls.Add(CreateInfoRow("Runtime", ".NET 10 / Windows Forms", 28, 264));
 
         var footer = CreateFooterVersionLabel();
         view.Controls.Add(infoCard);
@@ -496,6 +504,42 @@ internal sealed class ModernControlPanelForm : Form
             Location = new Point(140, 2),
             Size = new Size(560, 24)
         });
+        return row;
+    }
+
+    private static Control CreateInfoLinkRow(string title, string value, int x, int y, Action openLink)
+    {
+        var row = new Panel
+        {
+            Location = new Point(x, y),
+            Size = new Size(720, 30),
+            BackColor = CardBackground
+        };
+        row.Controls.Add(new Label
+        {
+            AutoSize = false,
+            Text = title,
+            Font = new Font("Segoe UI Semibold", 9.8F, FontStyle.Bold),
+            ForeColor = TextPrimary,
+            BackColor = CardBackground,
+            Location = new Point(0, 2),
+            Size = new Size(130, 24)
+        });
+        var link = new LinkLabel
+        {
+            AutoSize = false,
+            Text = value,
+            Font = new Font("Segoe UI", 9.8F),
+            LinkColor = Accent,
+            ActiveLinkColor = AccentHover,
+            VisitedLinkColor = Accent,
+            BackColor = CardBackground,
+            Location = new Point(140, 2),
+            Size = new Size(560, 24),
+            TabStop = true
+        };
+        link.Click += (_, _) => openLink();
+        row.Controls.Add(link);
         return row;
     }
 
@@ -627,7 +671,16 @@ internal sealed class ModernControlPanelForm : Form
     {
         Process.Start(new ProcessStartInfo
         {
-            FileName = "https://domindev.com",
+            FileName = WebsiteUrl,
+            UseShellExecute = true
+        });
+    }
+
+    private static void OpenSupport()
+    {
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = SupportUrl,
             UseShellExecute = true
         });
     }
@@ -646,6 +699,7 @@ internal enum SideIcon
     Info,
     Book,
     Globe,
+    Heart,
     Exit
 }
 
@@ -1221,6 +1275,10 @@ internal static class DrawingHelpers
                 graphics.DrawLine(pen, rect.X + 3, rect.Y + 11, rect.X + 19, rect.Y + 11);
                 graphics.DrawArc(pen, rect.X + 6, rect.Y + 2, 10, 18, 90, 180);
                 graphics.DrawArc(pen, rect.X + 6, rect.Y + 2, 10, 18, 270, 180);
+                break;
+            case SideIcon.Heart:
+                graphics.DrawBezier(pen, rect.X + 11, rect.Y + 18, rect.X + 1, rect.Y + 10, rect.X + 4, rect.Y + 3, rect.X + 11, rect.Y + 7);
+                graphics.DrawBezier(pen, rect.X + 11, rect.Y + 18, rect.X + 21, rect.Y + 10, rect.X + 18, rect.Y + 3, rect.X + 11, rect.Y + 7);
                 break;
             case SideIcon.Exit:
                 graphics.DrawRectangle(pen, rect.X + 2, rect.Y + 5, 10, 12);

@@ -1,8 +1,9 @@
 # KeepOn
 
-[![Release](https://img.shields.io/badge/release-v1.6.0-22C55E.svg)](dist/v1.6.0)
+[![Release](https://img.shields.io/badge/release-v1.6.1-22C55E.svg)](dist/v1.6.1)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Windows](https://img.shields.io/badge/platform-Windows-2563EB.svg)](#runtime)
+[![Support](https://img.shields.io/badge/support-buycoffee.to-F59E0B.svg)](https://buycoffee.to/domindev)
 
 KeepOn is a small Windows tray application for temporarily keeping your PC awake.
 It uses the native Windows Power Request API, so it does not simulate mouse
@@ -22,6 +23,12 @@ tray icon or control panel, and switch it off when you no longer need it.
 - Includes a modern control panel with Dashboard, Guide and About views.
 - Stores settings locally and does not require an account or network access.
 - Built for Windows with .NET 10 and Windows Forms.
+
+## Support the Project
+
+If KeepOn is useful to you, you can support development here:
+
+[buycoffee.to/domindev](https://buycoffee.to/domindev)
 
 ## Modes
 
@@ -44,13 +51,13 @@ a safer behavior for normal workstation use.
 ## Download Variants
 
 Ready-to-download ZIP files are included in this repository under
-[`dist/v1.6.0`](dist/v1.6.0).
+[`dist/v1.6.1`](dist/v1.6.1).
 
 | Download | .NET required on target PC | Notes |
 | --- | --- | --- |
-| [KeepOn-portable-self-contained-win-x64.zip](dist/v1.6.0/KeepOn-portable-self-contained-win-x64.zip) | No | Easiest option for moving between machines. |
-| [KeepOn-portable-compressed-win-x64.zip](dist/v1.6.0/KeepOn-portable-compressed-win-x64.zip) | No | Smaller self-contained build, may start slightly slower. |
-| [KeepOn-framework-dependent-win-x64.zip](dist/v1.6.0/KeepOn-framework-dependent-win-x64.zip) | Yes, .NET 10 Desktop Runtime | Smallest download, best for your own machines with .NET installed. |
+| [KeepOn-portable-self-contained-win-x64.zip](dist/v1.6.1/KeepOn-portable-self-contained-win-x64.zip) | No | Easiest option for moving between machines. |
+| [KeepOn-portable-compressed-win-x64.zip](dist/v1.6.1/KeepOn-portable-compressed-win-x64.zip) | No | Smaller self-contained build, may start slightly slower. |
+| [KeepOn-framework-dependent-win-x64.zip](dist/v1.6.1/KeepOn-framework-dependent-win-x64.zip) | Yes, .NET 10 Desktop Runtime | Smallest download, best for your own machines with .NET installed. |
 
 The same variants can also be generated locally:
 
@@ -87,6 +94,7 @@ After launching KeepOn, use the tray icon or the control panel:
 - `Guide` explains modes and actions inside the app.
 - `About` shows version and project information.
 - `Website` opens [domindev.com](https://domindev.com).
+- `Support` opens [buycoffee.to/domindev](https://buycoffee.to/domindev).
 - `Exit` closes KeepOn and clears active power requests.
 
 When KeepOn exits, it releases any active power request before the process closes.
@@ -163,8 +171,8 @@ variants and attaches ZIP files to a GitHub Release.
 Create a release by pushing a version tag:
 
 ```powershell
-git tag v1.6.0
-git push origin v1.6.0
+git tag v1.6.1
+git push origin v1.6.1
 ```
 
 You can also run the `Release` workflow manually from GitHub Actions and provide
@@ -182,8 +190,8 @@ See [CHANGELOG.md](CHANGELOG.md).
 | File description | KeepOn |
 | Company | DominDev |
 | Website | https://domindev.com |
-| Version | 1.6.0 |
-| File version | 1.6.0.0 |
+| Version | 1.6.1 |
+| File version | 1.6.1.0 |
 | Runtime | .NET 10 |
 | UI | Windows Forms |
 

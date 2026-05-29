@@ -2,6 +2,14 @@
 
 All notable changes to KeepOn are documented in this file.
 
+## [1.6.1] - 2026-05-29
+
+### Added
+
+- Added support links to README.
+- Added `Support` action in the app sidebar.
+- Added clickable support link in the About view.
+
 ## [1.6.0] - 2026-05-28
 
 ### Added

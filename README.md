@@ -3,6 +3,7 @@
 [![Release](https://img.shields.io/badge/release-v1.6.2-22C55E.svg)](dist/v1.6.2)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Windows](https://img.shields.io/badge/platform-Windows-2563EB.svg)](#runtime)
+[![Code signing](https://img.shields.io/badge/code%20signing-policy-64748B.svg)](CODE_SIGNING_POLICY.md)
 [![Support](https://img.shields.io/badge/support-buycoffee.to-F59E0B.svg)](https://buycoffee.to/domindev)
 
 KeepOn is a small Windows tray application for temporarily keeping your PC awake.
@@ -70,24 +71,44 @@ The same variants can also be generated locally:
 | Portable self-contained | `artifacts\publish\portable-self-contained\` |
 | Framework-dependent | `artifacts\publish\framework-dependent\` |
 
+## Code Signing Policy
+
+KeepOn is applying for free open source code signing through SignPath Foundation.
+See [CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md).
+
+Planned signed releases will use:
+
+```text
+Free code signing provided by SignPath.io, certificate by SignPath Foundation.
+```
+
+Until signing is fully configured, release artifacts may be unsigned. For
+security-sensitive environments, prefer the framework-dependent package and
+validate it together with [SECURITY.md](SECURITY.md), [PRIVACY.md](PRIVACY.md)
+and `SHA256SUMS.txt`.
+
 ## Installation
 
 KeepOn does not require a traditional installer.
 
-1. Choose one of the published `KeepOn.exe` variants.
-2. Copy it to your preferred application folder, for example:
+1. Choose one of the published ZIP packages.
+2. Extract the whole ZIP to your preferred application folder, for example:
 
    ```text
-   D:\Program Files\KeepOn\KeepOn.exe
+   D:\Program Files\KeepOn\
    ```
 
-3. Run `KeepOn.exe`.
+3. Run `KeepOn.exe` from the extracted folder.
 4. Open the tray icon or control panel.
 5. Enable `Start with Windows` if you want KeepOn to start after sign-in.
 
-If you move `KeepOn.exe` to another folder and use autostart, open KeepOn once
-from the new location and toggle `Start with Windows` off and on again. This
-updates the Windows startup entry to the new path.
+Keep the extracted files together. Do not move only `KeepOn.exe` out of the
+folder, especially when using the framework-dependent or self-contained ZIP
+packages.
+
+If you move KeepOn to another folder and use autostart, open KeepOn once from
+the new location and toggle `Start with Windows` off and on again. This updates
+the Windows startup entry to the new path.
 
 ## Usage
 
@@ -104,7 +125,7 @@ When KeepOn exits, it releases any active power request before the process close
 
 ## Privacy
 
-KeepOn is local-only by design.
+KeepOn is local-only by design. See [PRIVACY.md](PRIVACY.md).
 
 - It does not collect telemetry.
 - It does not require login.
@@ -174,6 +195,9 @@ See [SECURITY.md](SECURITY.md) for validation notes.
 This repository includes a GitHub Actions workflow that builds all release
 variants and attaches ZIP files to a GitHub Release.
 
+Code signing integration is planned through SignPath Foundation. Preparation
+notes are kept in [docs/signpath-application.md](docs/signpath-application.md).
+
 Create a release by pushing a version tag:
 
 ```powershell
@@ -229,13 +253,16 @@ If there is no `KeepOn.exe` entry, restart KeepOn and select the mode again.
 If autostart was enabled before moving the executable, toggle `Start with Windows`
 off and on again from the new location.
 
-### Antivirus warning
+### Antivirus or EDR warning
 
-KeepOn is an unsigned desktop executable, so Windows or antivirus tools may treat
-new builds with extra caution until they build reputation. Code signing can reduce
-these warnings, but the app itself does not perform stealthy behavior, network
-communication, injection, encryption, persistence outside the current user's Run
-key, or input simulation.
+Unsigned or newly signed KeepOn builds may be treated with extra caution by
+Windows or endpoint security tools until they build reputation. Code signing can
+reduce these warnings, but the app itself does not perform stealthy behavior,
+network communication, injection, encryption, persistence outside the current
+user's Run key, or input simulation.
+
+For endpoint security validation, review [SECURITY.md](SECURITY.md),
+[PRIVACY.md](PRIVACY.md) and [CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md).
 
 ## License
 

@@ -2,6 +2,17 @@
 
 All notable changes to KeepOn are documented in this file.
 
+## Unreleased
+
+### Added
+
+- Added `CODE_SIGNING_POLICY.md` for SignPath Foundation open source signing
+  readiness.
+- Added `PRIVACY.md` with explicit local-only and no-telemetry behavior.
+- Added SignPath Foundation application notes under `docs/`.
+- Added repository `CODEOWNERS`.
+- Linked signing, privacy and security validation documents from README.
+
 ## [1.6.2] - 2026-05-29
 
 ### Changed

@@ -82,8 +82,14 @@ Recommended validation steps:
 
 ## Code Signing
 
-KeepOn is not currently code-signed. For enterprise deployment, code signing is
-recommended. Prefer allowlisting by publisher certificate after signing rather
+KeepOn is applying for free open source code signing through SignPath Foundation.
+See [CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md).
+
+Until signing is fully configured, release artifacts may be unsigned. For
+enterprise deployment, prefer signed tagged releases once available and validate
+the Authenticode signature before distribution.
+
+Prefer validation by signed publisher, file hash and documented behavior rather
 than broad path-based exclusions.
 
 ## Reporting Security Issues

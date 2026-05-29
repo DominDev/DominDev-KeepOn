@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Release tag, for example v1.6.1"
+        description: "Release tag, for example v1.6.2"
         required: true
-        default: "v1.6.1"
+        default: "v1.6.2"
 
 permissions:
   contents: write
@@ -58,19 +58,13 @@ jobs:
             @{
               Name = 'portable-self-contained'
               Output = Join-Path $publishRoot 'portable-self-contained'
-              Args = @('--self-contained', 'true', '/p:PublishSingleFile=true')
+              Args = @('--self-contained', 'true', '/p:PublishSingleFile=false')
               Zip = Join-Path $releaseRoot 'KeepOn-portable-self-contained-win-x64.zip'
-            },
-            @{
-              Name = 'portable-compressed'
-              Output = Join-Path $publishRoot 'portable-compressed'
-              Args = @('--self-contained', 'true', '/p:PublishSingleFile=true', '/p:EnableCompressionInSingleFile=true')
-              Zip = Join-Path $releaseRoot 'KeepOn-portable-compressed-win-x64.zip'
             },
             @{
               Name = 'framework-dependent'
               Output = Join-Path $publishRoot 'framework-dependent'
-              Args = @('--self-contained', 'false', '/p:PublishSingleFile=true')
+              Args = @('--self-contained', 'false', '/p:PublishSingleFile=false')
               Zip = Join-Path $releaseRoot 'KeepOn-framework-dependent-win-x64.zip'
             }
           )
@@ -85,11 +79,22 @@ jobs:
             Compress-Archive -Path (Join-Path $variant.Output '*') -DestinationPath $variant.Zip -Force
           }
 
+          $checksumPath = Join-Path $releaseRoot 'SHA256SUMS.txt'
+          $checksumLines = Get-ChildItem -LiteralPath $releaseRoot -Filter '*.zip' |
+            Sort-Object Name |
+            ForEach-Object {
+              $hash = Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256
+              "$($hash.Hash.ToLowerInvariant())  $($_.Name)"
+            }
+          Set-Content -LiteralPath $checksumPath -Value $checksumLines -Encoding utf8
+
       - name: Upload workflow artifacts
         uses: actions/upload-artifact@v4
         with:
           name: KeepOn-release-zips
-          path: artifacts/release/*.zip
+          path: |
+            artifacts/release/*.zip
+            artifacts/release/SHA256SUMS.txt
           if-no-files-found: error
 
       - name: Create or update GitHub Release
@@ -109,7 +114,7 @@ jobs:
             throw 'Release tag is empty.'
           }
 
-          $assets = Get-ChildItem -LiteralPath (Join-Path $env:GITHUB_WORKSPACE 'artifacts\release') -Filter '*.zip' |
+          $assets = Get-ChildItem -LiteralPath (Join-Path $env:GITHUB_WORKSPACE 'artifacts\release') -File |
             ForEach-Object { $_.FullName }
 
           if ($assets.Count -eq 0) {

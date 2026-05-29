@@ -1,6 +1,6 @@
 # KeepOn
 
-[![Release](https://img.shields.io/badge/release-v1.6.1-22C55E.svg)](dist/v1.6.1)
+[![Release](https://img.shields.io/badge/release-v1.6.2-22C55E.svg)](dist/v1.6.2)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Windows](https://img.shields.io/badge/platform-Windows-2563EB.svg)](#runtime)
 [![Support](https://img.shields.io/badge/support-buycoffee.to-F59E0B.svg)](https://buycoffee.to/domindev)
@@ -51,21 +51,24 @@ a safer behavior for normal workstation use.
 ## Download Variants
 
 Ready-to-download ZIP files are included in this repository under
-[`dist/v1.6.1`](dist/v1.6.1).
+[`dist/v1.6.2`](dist/v1.6.2).
 
 | Download | .NET required on target PC | Notes |
 | --- | --- | --- |
-| [KeepOn-portable-self-contained-win-x64.zip](dist/v1.6.1/KeepOn-portable-self-contained-win-x64.zip) | No | Easiest option for moving between machines. |
-| [KeepOn-portable-compressed-win-x64.zip](dist/v1.6.1/KeepOn-portable-compressed-win-x64.zip) | No | Smaller self-contained build, may start slightly slower. |
-| [KeepOn-framework-dependent-win-x64.zip](dist/v1.6.1/KeepOn-framework-dependent-win-x64.zip) | Yes, .NET 10 Desktop Runtime | Smallest download, best for your own machines with .NET installed. |
+| [KeepOn-framework-dependent-win-x64.zip](dist/v1.6.2/KeepOn-framework-dependent-win-x64.zip) | Yes, .NET 10 Desktop Runtime | Recommended for managed/corporate environments. Not self-contained and not single-file. |
+| [KeepOn-portable-self-contained-win-x64.zip](dist/v1.6.2/KeepOn-portable-self-contained-win-x64.zip) | No | Includes the .NET runtime. Larger after extraction, but still not single-file packed. |
+| [SHA256SUMS.txt](dist/v1.6.2/SHA256SUMS.txt) | No | SHA-256 checksums for validating downloaded ZIP files. |
+
+Both current ZIP variants contain unpacked application files rather than packed
+single-file executables. This is intentional: it gives EDR tools a simpler file
+profile to inspect. The old compressed single-file variant was removed.
 
 The same variants can also be generated locally:
 
 | Variant | Local publish output |
 | --- | --- |
-| Portable self-contained | `artifacts\publish\portable-self-contained\KeepOn.exe` |
-| Portable compressed | `artifacts\publish\portable-compressed\KeepOn.exe` |
-| Framework-dependent | `artifacts\publish\framework-dependent\KeepOn.exe` |
+| Portable self-contained | `artifacts\publish\portable-self-contained\` |
+| Framework-dependent | `artifacts\publish\framework-dependent\` |
 
 ## Installation
 
@@ -160,8 +163,11 @@ Publish outputs:
 ```text
 artifacts\publish\portable-self-contained\KeepOn.exe
 artifacts\publish\framework-dependent\KeepOn.exe
-artifacts\publish\portable-compressed\KeepOn.exe
+artifacts\publish\SHA256SUMS.txt
 ```
+
+For security-sensitive environments, start with the framework-dependent variant.
+See [SECURITY.md](SECURITY.md) for validation notes.
 
 ## Release Automation
 
@@ -171,8 +177,8 @@ variants and attaches ZIP files to a GitHub Release.
 Create a release by pushing a version tag:
 
 ```powershell
-git tag v1.6.1
-git push origin v1.6.1
+git tag v1.6.2
+git push origin v1.6.2
 ```
 
 You can also run the `Release` workflow manually from GitHub Actions and provide
@@ -190,8 +196,8 @@ See [CHANGELOG.md](CHANGELOG.md).
 | File description | KeepOn |
 | Company | DominDev |
 | Website | https://domindev.com |
-| Version | 1.6.1 |
-| File version | 1.6.1.0 |
+| Version | 1.6.2 |
+| File version | 1.6.2.0 |
 | Runtime | .NET 10 |
 | UI | Windows Forms |
 

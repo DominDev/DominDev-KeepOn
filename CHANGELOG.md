@@ -2,6 +2,17 @@
 
 All notable changes to KeepOn are documented in this file.
 
+## [1.6.2] - 2026-05-29
+
+### Changed
+
+- Removed the compressed single-file distribution variant.
+- Changed release builds to unpacked framework-dependent and unpacked
+  self-contained packages.
+- Added SHA-256 checksum generation.
+- Added `SECURITY.md` for validation and enterprise review.
+- Documented why `AllowUnsafeBlocks` is required for source-generated Windows interop.
+
 ## [1.6.1] - 2026-05-29
 
 ### Added

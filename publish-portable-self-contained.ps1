@@ -11,4 +11,4 @@ dotnet publish "$PSScriptRoot\KeepOn.csproj" `
     -r win-x64 `
     --self-contained true `
     -o $output `
-    /p:PublishSingleFile=true
+    /p:PublishSingleFile=false

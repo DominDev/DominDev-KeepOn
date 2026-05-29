@@ -1,0 +1,2 @@
+﻿08d0a120f4249759534ba61445053b631bdb0f058a2cc0463b24f0b4a81b1d6d  KeepOn-framework-dependent-win-x64.zip
+0713829e70a7d36ab917453ec6920cdbd2208881dcdeda580dc3a7c51e7fcb94  KeepOn-portable-self-contained-win-x64.zip
